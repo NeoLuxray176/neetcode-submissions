@@ -1,0 +1,23 @@
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        # Iterate through string
+        # In steps of one or in steps of two
+        # Check if either (or both) are a valid encoding
+        # if yes, add to number of encodings at the current iteration
+        # But where does DP come in?
+
+        n = len(s)
+        dp = [0] * (n+1)
+        dp[n] = 1
+
+        for i in range(n - 1, -1, -1):
+
+            if int(s[i]) == 0:
+                dp[i] = 0
+            else:
+                dp[i] = dp[i+1]
+            
+                if i < n-1 and (int(s[i]) == 1 or int(s[i]) == 2) and int(s[i+1]) <= 6:
+                    dp[i] += 1
+
+        return dp[0]
